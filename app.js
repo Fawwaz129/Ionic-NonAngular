@@ -1,8 +1,14 @@
-const ReasonInput = document.querySelector("#input-reason");
-const AmountInput = document.querySelector("#input-amount");
-const BtnClose = document.querySelector("#btn-cancel");
-const BtnConfirm = document.querySelector("#btn-confirm");
-const expensesList = document.querySelector("#expenses-list");
+const ReasonInput = document.querySelector('#input-reason');
+const AmountInput = document.querySelector('#input-amount');
+const BtnClose = document.querySelector('#btn-cancel');
+const BtnConfirm = document.querySelector('#btn-confirm');
+const expensesList = document.querySelector('#expenses-list');
+const totalExpensesOutput = document.querySelector('#total-expenses');
+let totalExpenses = 0;
+const clear = () => {
+  ReasonInput = '';
+  AmountInput = '';
+};
 
 BtnConfirm.addEventListener("click", () => {
   const enteredReason = ReasonInput.value;
@@ -15,10 +21,12 @@ BtnConfirm.addEventListener("click", () => {
   ) {
     return;
   }
-  const newItem = document.createElement("ion-item");
+  const newItem = document.createElement('ion-item');
   newItem.textContent = enteredReason + ": $" + enteredAmount;
   expensesList.appendChild(newItem);
+
+  totalExpenses += +enteredAmount;
+  totalExpensesOutput.textContent = totalExpenses;
+  clear();
 });
-BtnClose.addEventListener("click", () => {
-  console.log("it works");
-});
+BtnClose.addEventListener('click', clear);
